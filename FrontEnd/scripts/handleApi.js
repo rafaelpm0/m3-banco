@@ -1,6 +1,6 @@
 export async function getDividas() {
     try{
-        const response = await fetch("http://localhost:5000/dividas",{
+        const response = await fetch("http://localhost:5000/api/pagamentos",{
             method: "GET",
             headers: {"Content-type": "application/json;charset=UTF-8"}
         });
@@ -16,10 +16,43 @@ export async function getDividas() {
     }
 }
 
+export async function getPagadores() {
+    try {
+        const response = await fetch("http://localhost:5000/api/pagadores", {
+            method: "GET",
+            headers: { "Content-type": "application/json;charset=UTF-8" }
+        });
+        if (!response.ok) {
+            showMessageModal("Erro de conexão com api");
+        } else {
+            const data = await response.json();
+            return data;
+        }
+    } catch {
+        showMessageModal("Erro de conexão com api");
+    }
+}
+
+export async function getUnidades() {
+    try {
+        const response = await fetch("http://localhost:5000/api/unidades", {
+            method: "GET",
+            headers: { "Content-type": "application/json;charset=UTF-8" }
+        });
+        if (!response.ok) {
+            showMessageModal("Erro de conexão com api");
+        } else {
+            const data = await response.json();
+            return data;
+        }
+    } catch {
+        showMessageModal("Erro de conexão com api");
+    }
+}
+
 export async function updateDividaSelect() {
     try {
         const dividas = await getDividas();
-        console.log(dividas)
         const select = document.getElementById("data-numero_divida");
         if (select) {
             const defaultOption = select.querySelector("option[value='']");
@@ -79,22 +112,15 @@ export function handleChangeDivida(data) {
 
 export async function handleForm(data) {
     const formData = new FormData();
-    formData.append("nome_cliente", data.nome_cliente);
-    formData.append("cpf_cliente", data.cpf_cliente);
-    formData.append("email_cliente", data.email_cliente);
-    formData.append("cep", data.cep);
-    formData.append("numero", data.numero);
-    formData.append("complemento", data.complemento);
-    formData.append("valor", data.valor);
-    formData.append("descricao", data.descricao);
-    formData.append("situacao", data.situacao);
-    formData.append("numero_processo", data.numero_processo);
+    formData.append("id_pagador", data.id_pagador);
+    formData.append("id_unidade", data.id_unidade);
+    formData.append("data_pagamento", data.data_pagamento);
+    formData.append("ano_referencia", data.ano_referencia);
+    formData.append("mes_referencia", data.mes_referencia);
     formData.append("arquivo_comprovante", data.arquivo_comprovante);
 
-
-
     try {
-        const response = await fetch("http://localhost:5000/dividas", {
+        const response = await fetch("http://localhost:5000/api/pagamentos", {
             method: "POST",
             body: formData,
         });
@@ -103,13 +129,13 @@ export async function handleForm(data) {
         }
         const result = await response.json();
         console.log("Server response:", result);
-        showMessageModal("Divida cadastrada com sucesso!");
+        showMessageModal("Pagamento cadastrado com sucesso!");
         setTimeout(() => {
             deactivateModal();
         }, 3000);
     } catch (error) {
         console.error("Error:", error);
-        showMessageModal("Erro ao cadastrar divida!");
+        showMessageModal("Erro ao cadastrar pagamento!");
         setTimeout(() => {
             deactivateModal();
         }, 3000);
@@ -142,7 +168,6 @@ export async function deleteDivida() {
     updateDividaSelect()
 }
 
-
 function showMessageModal(message){
     const modal = document.getElementById("modal");
     const modalContent = document.getElementById("modalContent");
@@ -160,4 +185,3 @@ function deactivateModal() {
 }
 
 window.deactivateModal = deactivateModal;
-

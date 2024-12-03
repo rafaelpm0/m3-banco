@@ -19,38 +19,24 @@
     <main class="form">
       <form id="submitForm" method="POST" enctype="multipart/form-data">
         <div class="form-fields">
-          <label for="nome_cliente">Nome do Cliente:</label>
-          <input type="text" id="nome_cliente" name="nome_cliente" maxlength="100" required />
-          
-          <label for="cpf_cliente">CPF do Cliente:</label>
-          <input type="text" id="cpf_cliente" name="cpf_cliente" maxlength="14" required />
-          
-          <label for="email_cliente">Email do Cliente:</label>
-          <input type="email" id="email_cliente" name="email_cliente" maxlength="100" required />
-          
-          <label for="cep">CEP:</label>
-          <input type="text" id="cep" name="cep" maxlength="9" required />
-          
-          <label for="numero">Número:</label>
-          <input type="text" id="numero" name="numero" maxlength="10" required />
-          
-          <label for="complemento">Complemento:</label>
-          <input type="text" id="complemento" name="complemento" maxlength="100" />
-          
-          <label for="valor">Valor da Dívida:</label>
-          <input type="number" id="valor" name="valor" min="0" step="0.01" required />
-          
-          <label for="descricao">Descrição da Dívida:</label>
-          <textarea id="descricao" name="descricao" maxlength="2000" required></textarea>
-          
-          <label for="situacao">Situação:</label>
-          <select id="situacao" name="situacao" required>
-            <option value="Pendente">Pendente</option>
-            <option value="Pago">Pago</option>
+          <label for="id_pagador">Pagador:</label>
+          <select id="id_pagador" name="id_pagador" required>
+            <option value="" disabled selected>Escolha o pagador</option>
           </select>
           
-          <label for="numero_processo">Número do Processo:</label>
-          <input type="text" id="numero_processo" name="numero_processo" maxlength="50" />
+          <label for="id_unidade">Unidade:</label>
+          <select id="id_unidade" name="id_unidade" required>
+            <option value="" disabled selected>Escolha a unidade</option>
+          </select>
+          
+          <label for="data_pagamento">Data do Pagamento:</label>
+          <input type="date" id="data_pagamento" name="data_pagamento" required />
+          
+          <label for="ano_referencia">Ano de Referência:</label>
+          <input type="number" id="ano_referencia" name="ano_referencia" min="2000" max="2100" required />
+          
+          <label for="mes_referencia">Mês de Referência:</label>
+          <input type="number" id="mes_referencia" name="mes_referencia" min="1" max="12" required />
           
           <label for="arquivo_comprovante">Arquivo de Comprovante (PDF):</label>
           <input type="file" id="arquivo_comprovante" name="arquivo_comprovante" accept="application/pdf" />
@@ -62,54 +48,49 @@
       <div id="dataForm">
         <label class="data-label">Número da Dívida:</label>
         <select id="data-numero_divida" name="data-numero_divida" >
-        <option value="" disabled selected>Escolha o processo</option>
+          <option value="" disabled selected>Escolha o processo</option>
         </select>
-        <button id="btn-delete" >Deletar Divida</button>
+        <button id="btn-delete">Deletar Dívida</button>
       </div>
       <div class="data-field">
-        <label class="data-label">Nome do Cliente:</label>
-        <span class="data-value" id="data-nome_cliente"></span>
+        <label class="data-label">Nome do Pagador:</label>
+        <span class="data-value" id="data-nome_pagador"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">CPF do Cliente:</label>
-        <span class="data-value" id="data-cpf_cliente"></span>
+        <label class="data-label">Email do Pagador:</label>
+        <span class="data-value" id="data-email_pagador"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">Email do Cliente:</label>
-        <span class="data-value" id="data-email_cliente"></span>
+        <label class="data-label">Documento do Pagador:</label>
+        <span class="data-value" id="data-documento_pagador"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">CEP:</label>
-        <span class="data-value" id="data-cep"></span>
+        <label class="data-label">Telefone do Pagador:</label>
+        <span class="data-value" id="data-telefone_pagador"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">Número:</label>
-        <span class="data-value" id="data-numero"></span>
+        <label class="data-label">Número Identificador da Unidade:</label>
+        <span class="data-value" id="data-numero_identificador_unidade"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">Complemento:</label>
-        <span class="data-value" id="data-complemento"></span>
+        <label class="data-label">Localização da Unidade:</label>
+        <span class="data-value" id="data-localizacao_unidade"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">Valor da Dívida:</label>
-        <span class="data-value" id="data-valor"></span>
+        <label class="data-label">Data do Pagamento:</label>
+        <span class="data-value" id="data-data_pagamento"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">Descrição da Dívida:</label>
-        <span class="data-value" id="data-descricao"></span>
+        <label class="data-label">Ano de Referência:</label>
+        <span class="data-value" id="data-ano_referencia"></span>
       </div>
       <div class="data-field">
-        <label class="data-label">Situação:</label>
-        <span class="data-value" id="data-situacao"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Número do Processo:</label>
-        <span class="data-value" id="data-numero_processo"></span>
+        <label class="data-label">Mês de Referência:</label>
+        <span class="data-value" id="data-mes_referencia"></span>
       </div>
       <div class="data-field">
         <label class="data-label">Arquivo de Comprovante:</label>
         <button id="data-arquivo_comprovante">Baixar Comprovante</button>
-      </div>
       </div>
     </main>
   </body>

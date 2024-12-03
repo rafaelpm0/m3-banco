@@ -1,46 +1,117 @@
+import {
+  createDB,
+  insertPagador,
+  getPagadores,
+  getPagadorById,
+  deletePagador,
+  insertUnidade,
+  getUnidades,
+  getUnidadeById,
+  deleteUnidade,
+  insertPagamento,
+  getPagamentos,
+  getPagamentoById,
+  deletePagamento
+} from './db.mjs';
 
-import { createDB, insertDivida, getDividas, getDividasById, deleteDividaById } from './db.mjs';
+// Criar as tabelas
+ //createDB();
 
-// Criar a tabela dividas
-//createDB();
-
-// Inserir uma nova divida
-const novaDivida = {
-  nome_cliente: "João Silva",
-  cpf_cliente: "123.456.789-00",
-  email_cliente: "joao.silva@example.com",
-  cep: "12345-678",
-  numero: "123",
-  complemento: "Apto 101",
-  valor: 1500.00,
-  descricao: "Empréstimo pessoal",
-  situacao: "Pendente",
-  numero_processo: "123456789",
-  arquivo_comprovante: "comprovante.pdf"
+// Inserir um novo pagador
+const novoPagador = {
+  nome_completo: "Maria Oliveira",
+  email: "maria.oliveira@example.com",
+  documento: "987.654.321-00",
+  telefone: "98765-4321"
 };
 
-insertDivida(novaDivida);
+//insertPagador(novoPagador);
 
-// Listar todas as dividas
-//console.log("Listando todas as dividas:");
-
-async function listDividas() {
-    let data = await getDividas();
-    console.log(data);
+// Listar todos os pagadores
+async function listPagadores() {
+  let data = await getPagadores();
+  console.log(data);
 }
-//listDividas();
+//listPagadores();
 
-
-async function listDividasbyID() {
-    let id = 1;
-    let data = await getDividasById(id);
-    console.log(data);
+// Buscar pagador por ID
+async function listPagadorById() {
+  let id = 1;
+  let data = await getPagadorById(id);
+  console.log(data);
 }
-//listDividasbyID();
+//listPagadorById();
 
-async function delDividaById() {
-    let id = 1;
-    let data = await deleteDividaById(id);
-    console.log(data);
+// Deletar pagador por ID
+async function delPagadorById() {
+  let id = 1;
+  await deletePagador(id);
+  console.log(`Pagador com id ${id} deletado`);
 }
-//delDividaById(1);
+ //delPagadorById();
+
+// Inserir uma nova unidade
+const novaUnidade = {
+  numero_identificador: "Bloco 2, Apto 101",
+  localizacao: "Bloco 2, 1º Andar"
+};
+
+//insertUnidade(novaUnidade);
+
+// Listar todas as unidades
+async function listUnidades() {
+  let data = await getUnidades();
+  console.log(data);
+}
+// listUnidades();
+
+// Buscar unidade por ID
+async function listUnidadeById() {
+  let id = 1;
+  let data = await getUnidadeById(id);
+  console.log(data);
+}
+// listUnidadeById();
+
+// Deletar unidade por ID
+async function delUnidadeById() {
+  let id = 1;
+  await deleteUnidade(id);
+  console.log(`Unidade com id ${id} deletada`);
+}
+// delUnidadeById();
+
+// Inserir um novo pagamento
+const novoPagamento = {
+  id_pagador: 1,
+  data_pagamento: "2023-10-01",
+  comprovante: null, // Supondo que não há comprovante no momento
+  ano_referencia: 2023,
+  mes_referencia: 10,
+  id_unidade: 1
+};
+
+//insertPagamento(novoPagamento);
+
+// Listar todos os pagamentos
+async function listPagamentos() {
+  let data = await getPagamentos();
+  console.log(data);
+}
+// listPagamentos();
+
+// Buscar pagamento por ID
+async function listPagamentoById() {
+  let id = 1;
+  let data = await getPagamentoById(id);
+  console.log(data);
+}
+// listPagamentoById();
+
+// Deletar pagamento por ID
+async function delPagamentoById() {
+  let id = 1;
+  await deletePagamento(id);
+  console.log(`Pagamento com id ${id} deletado`);
+}
+// delPagamentoById();

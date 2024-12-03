@@ -33,93 +33,225 @@ async function createDB() {
   const connection = await connect();
   try {
     await connection.execute(
-      `CREATE TABLE IF NOT EXISTS dividas (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nome_cliente VARCHAR(255) NOT NULL,
-        cpf_cliente VARCHAR(14) NOT NULL,
-        email_cliente VARCHAR(255) NOT NULL,
-        cep VARCHAR(10),
-        numero VARCHAR(10),
-        complemento VARCHAR(255),
-        valor DECIMAL(10, 2) NOT NULL,
-        descricao TEXT NOT NULL,
-        situacao VARCHAR(50) NOT NULL,
-        numero_processo VARCHAR(50),
-        arquivo_comprovante_name VARCHAR(255),
-        arquivo_comprovante LONGBLOB
+      `CREATE TABLE IF NOT EXISTS Pagador (
+        id_pagador INT AUTO_INCREMENT PRIMARY KEY,
+        nome_completo VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        documento VARCHAR(20) NOT NULL UNIQUE,
+        telefone VARCHAR(15) NOT NULL
       )`
     );
-    console.log('Tabela "dividas" criada ou já existe.');
+    console.log('Tabela "Pagador" criada ou já existe.');
+
+    await connection.execute(
+      `CREATE TABLE IF NOT EXISTS Unidade (
+        id_unidade INT AUTO_INCREMENT PRIMARY KEY,
+        numero_identificador VARCHAR(50) NOT NULL,
+        localizacao VARCHAR(255) NOT NULL
+      )`
+    );
+    console.log('Tabela "Unidade" criada ou já existe.');
+
+    await connection.execute(
+      `CREATE TABLE IF NOT EXISTS Pagamento (
+        id_pagamento INT AUTO_INCREMENT PRIMARY KEY,
+        id_pagador INT NOT NULL,
+        data_pagamento DATE NOT NULL,
+        comprovante LONGBLOB,
+        ano_referencia YEAR NOT NULL,
+        mes_referencia TINYINT NOT NULL,
+        id_unidade INT NOT NULL,
+        data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (id_pagador) REFERENCES Pagador(id_pagador) ON DELETE CASCADE,
+        FOREIGN KEY (id_unidade) REFERENCES Unidade(id_unidade) ON DELETE CASCADE
+      )`
+    );
+    console.log('Tabela "Pagamento" criada ou já existe.');
   } catch (err) {
-    throw new Error('Erro ao criar a tabela: ' + err.message);
+    throw new Error('Erro ao criar as tabelas: ' + err.message);
   } finally {
     await closeConnection(connection);
   }
 }
 
-async function insertDivida(divida) {
+// Funções para a tabela Pagador
+async function insertPagador(pagador) {
   const connection = await connect();
   try {
     const [result] = await connection.execute(
-      `INSERT INTO dividas (nome_cliente, cpf_cliente, email_cliente, cep, numero, complemento, valor, descricao, situacao, numero_processo, arquivo_comprovante_name, arquivo_comprovante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        divida.nome_cliente,
-        divida.cpf_cliente,
-        divida.email_cliente,
-        divida.cep,
-        divida.numero,
-        divida.complemento,
-        divida.valor,
-        divida.descricao,
-        divida.situacao,
-        divida.numero_processo,
-        divida.arquivo_comprovante_name,
-        divida.arquivo_comprovante,
-      ]
+      `INSERT INTO Pagador (nome_completo, email, documento, telefone) VALUES (?, ?, ?, ?)`,
+      [pagador.nome_completo, pagador.email, pagador.documento, pagador.telefone]
     );
-    console.log(`Nova divida adicionada com o id ${result.insertId}`);
+    console.log(`Novo pagador adicionado com o id ${result.insertId}`);
     return result.insertId;
   } catch (err) {
-    throw new Error('Erro ao inserir a dívida: ' + err.message);
+    throw new Error('Erro ao inserir o pagador: ' + err.message);
   } finally {
     await closeConnection(connection);
   }
 }
 
-async function getDividas() {
+async function getPagadores() {
   const connection = await connect();
   try {
-    const [rows] = await connection.execute(`SELECT * FROM dividas`);
+    const [rows] = await connection.execute(`SELECT * FROM Pagador`);
     return rows;
   } catch (err) {
-    throw new Error('Erro ao buscar as dívidas: ' + err.message);
+    throw new Error('Erro ao buscar os pagadores: ' + err.message);
   } finally {
     await closeConnection(connection);
   }
 }
 
-async function getDividasById(id) {
+async function getPagadorById(id) {
   const connection = await connect();
   try {
-    const [rows] = await connection.execute(`SELECT * FROM dividas WHERE id = ?`, [id]);
+    const [rows] = await connection.execute(`SELECT * FROM Pagador WHERE id_pagador = ?`, [id]);
     return rows[0];
   } catch (err) {
-    throw new Error('Erro ao buscar a dívida: ' + err.message);
+    throw new Error('Erro ao buscar o pagador: ' + err.message);
   } finally {
     await closeConnection(connection);
   }
 }
 
-async function deleteDividaById(id) {
+async function deletePagador(id) {
   const connection = await connect();
   try {
-    const [result] = await connection.execute(`DELETE FROM dividas WHERE id = ?`, [id]);
-    return { changes: result.affectedRows };
+    await connection.execute(`DELETE FROM Pagador WHERE id_pagador = ?`, [id]);
+    console.log(`Pagador com id ${id} deletado`);
   } catch (err) {
-    throw new Error('Erro ao deletar a dívida: ' + err.message);
+    throw new Error('Erro ao deletar o pagador: ' + err.message);
   } finally {
     await closeConnection(connection);
   }
 }
 
-export { createDB, insertDivida, getDividas, getDividasById, deleteDividaById };
+// Funções para a tabela Unidade
+async function insertUnidade(unidade) {
+  const connection = await connect();
+  try {
+    const [result] = await connection.execute(
+      `INSERT INTO Unidade (numero_identificador, localizacao) VALUES (?, ?)`,
+      [unidade.numero_identificador, unidade.localizacao]
+    );
+    console.log(`Nova unidade adicionada com o id ${result.insertId}`);
+    return result.insertId;
+  } catch (err) {
+    throw new Error('Erro ao inserir a unidade: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+async function getUnidades() {
+  const connection = await connect();
+  try {
+    const [rows] = await connection.execute(`SELECT * FROM Unidade`);
+    return rows;
+  } catch (err) {
+    throw new Error('Erro ao buscar as unidades: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+async function getUnidadeById(id) {
+  const connection = await connect();
+  try {
+    const [rows] = await connection.execute(`SELECT * FROM Unidade WHERE id_unidade = ?`, [id]);
+    return rows[0];
+  } catch (err) {
+    throw new Error('Erro ao buscar a unidade: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+async function deleteUnidade(id) {
+  const connection = await connect();
+  try {
+    await connection.execute(`DELETE FROM Unidade WHERE id_unidade = ?`, [id]);
+    console.log(`Unidade com id ${id} deletada`);
+  } catch (err) {
+    throw new Error('Erro ao deletar a unidade: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+// Funções para a tabela Pagamento
+async function insertPagamento(pagamento) {
+  const connection = await connect();
+  try {
+    const [result] = await connection.execute(
+      `INSERT INTO Pagamento (id_pagador, data_pagamento, comprovante, ano_referencia, mes_referencia, id_unidade) VALUES (?, ?, ?, ?, ?, ?)`,
+      [
+        pagamento.id_pagador,
+        pagamento.data_pagamento,
+        pagamento.comprovante,
+        pagamento.ano_referencia,
+        pagamento.mes_referencia,
+        pagamento.id_unidade
+      ]
+    );
+    console.log(`Novo pagamento adicionado com o id ${result.insertId}`);
+    return result.insertId;
+  } catch (err) {
+    throw new Error('Erro ao inserir o pagamento: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+async function getPagamentos() {
+  const connection = await connect();
+  try {
+    const [rows] = await connection.execute(`SELECT * FROM Pagamento`);
+    return rows;
+  } catch (err) {
+    throw new Error('Erro ao buscar os pagamentos: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+async function getPagamentoById(id) {
+  const connection = await connect();
+  try {
+    const [rows] = await connection.execute(`SELECT * FROM Pagamento WHERE id_pagamento = ?`, [id]);
+    return rows[0];
+  } catch (err) {
+    throw new Error('Erro ao buscar o pagamento: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+async function deletePagamento(id) {
+  const connection = await connect();
+  try {
+    await connection.execute(`DELETE FROM Pagamento WHERE id_pagamento = ?`, [id]);
+    console.log(`Pagamento com id ${id} deletado`);
+  } catch (err) {
+    throw new Error('Erro ao deletar o pagamento: ' + err.message);
+  } finally {
+    await closeConnection(connection);
+  }
+}
+
+export {
+  createDB,
+  insertPagador,
+  getPagadores,
+  getPagadorById,
+  deletePagador,
+  insertUnidade,
+  getUnidades,
+  getUnidadeById,
+  deleteUnidade,
+  insertPagamento,
+  getPagamentos,
+  getPagamentoById,
+  deletePagamento
+};
