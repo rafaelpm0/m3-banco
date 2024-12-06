@@ -53,7 +53,7 @@ export async function getUnidades() {
 export async function updateDividaSelect() {
     try {
         const dividas = await getDividas();
-        const select = document.getElementById("data-numero_divida");
+        const select = document.getElementById("data-numero_pagamento");
         if (select) {
             const defaultOption = select.querySelector("option[value='']");
             if (defaultOption) {
@@ -63,10 +63,10 @@ export async function updateDividaSelect() {
             if (defaultOption) {
                 select.appendChild(defaultOption);
             }
-            dividas.forEach(divida => {
+            dividas[0].forEach(divida => {
                 const option = document.createElement("option");
-                option.value = divida.id;
-                option.text = `${divida.nome_cliente} - Processo: ${divida.numero_processo}`;
+                option.value = divida.id_pagamento;
+                option.text = `${divida.nome_completo} - ${divida.mes_referencia}/${divida.ano_referencia}`;
                 select.appendChild(option);
             });
         }
@@ -79,15 +79,17 @@ export async function updateDividaSelect() {
 }
 
 export function handleChangeDivida(data) {
-    console.log(data);
+    console.log(data, data.comprovante.data)
     Object.keys(data).forEach(key => {
+      
         const element = document.getElementById(`data-${key}`);
+        
         if (element) {
             if (element.tagName === "INPUT" || element.tagName === "TEXTAREA" || element.tagName === "SELECT") {
                 element.value = data[key] || "";
-            } else if (element.tagName === "BUTTON" && key === "arquivo_comprovante") {
-                const fileName = data.arquivo_comprovante_name || "comprovante.pdf";
-                const fileContent = data.arquivo_comprovante ? new Uint8Array(data.arquivo_comprovante.data) : null;
+            } else if (element.tagName === "BUTTON" && key === "comprovante") {
+                const fileName = "comprovante.pdf";
+                const fileContent = data.comprovante ? new Uint8Array(data.comprovante.data) : null;
                 if (fileContent) {
                     const blob = new Blob([fileContent], { type: "application/pdf" });
                     const url = URL.createObjectURL(blob);

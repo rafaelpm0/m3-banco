@@ -1,0 +1,66 @@
+
+procedimento para pegar via id
+DELIMITER //
+
+CREATE PROCEDURE GetPagamentosID(
+    IN pagamentoId INT
+)
+BEGIN
+    SELECT 
+        p.id_pagamento,
+        p.data_pagamento,
+        p.comprovante,
+        p.ano_referencia,
+        p.mes_referencia,
+        p.data_registro,
+        p.id_unidade,
+        u.numero_identificador,
+        u.localizacao,
+        p.id_pagador,
+        pa.nome_completo,
+        pa.email,
+        pa.documento,
+        pa.telefone
+    FROM 
+        Pagamento p
+    JOIN 
+        Unidade u ON p.id_unidade = u.id_unidade
+    JOIN
+        Pagador pa ON p.id_pagador = pa.id_pagador
+    WHERE
+        p.id_pagamento = pagamentoId;
+END //
+
+DELIMITER ;
+
+
+
+procedimento para pegar todos
+DELIMITER //
+
+CREATE PROCEDURE GetPagamentos()
+BEGIN
+    SELECT 
+        p.id_pagamento,
+        p.data_pagamento,
+        p.comprovante,
+        p.ano_referencia,
+        p.mes_referencia,
+        p.data_registro,
+        p.id_unidade,
+        u.numero_identificador,
+        u.localizacao,
+        p.id_pagador,
+        pa.nome_completo,
+        pa.email,
+        pa.documento,
+        pa.telefone
+    FROM 
+        Pagamento p
+    JOIN 
+        Unidade u ON p.id_unidade = u.id_unidade
+    JOIN
+        Pagador pa ON p.id_pagador = pa.id_pagador;
+END //
+
+DELIMITER ;

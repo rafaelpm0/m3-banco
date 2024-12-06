@@ -35,13 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Form not found");
     }
 
-    const select = document.getElementById("data-numero_divida");
+    const select = document.getElementById("data-numero_pagamento");
     if (select) {
         select.addEventListener("change", async (event) => {
+           
             const id = event.target.value;
-            const dividas = await getDividas(); //dava para melhorar e fazer a requisicao direto pelo id 
-            const divida = dividas.find((divida) => divida.id == id);
-            handleChangeDivida(divida);
+            const data = await getDividas(); //dava para melhorar e fazer a requisicao direto pelo id 
+            const objectId = data[0].find((data) => data.id_pagamento == id);
+            handleChangeDivida(objectId);
         });
     } else {
         console.error("Select not found");

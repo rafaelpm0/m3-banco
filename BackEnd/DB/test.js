@@ -19,9 +19,9 @@ import {
 
 // Inserir um novo pagador
 const novoPagador = {
-  nome_completo: "Maria Oliveira",
-  email: "maria.oliveira@example.com",
-  documento: "987.654.321-00",
+  nome_completo: "Oliveira",
+  email: "maria.oliveira@example.comm",
+  documento: "987.654.321-000",
   telefone: "98765-4321"
 };
 

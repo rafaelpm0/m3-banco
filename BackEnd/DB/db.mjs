@@ -106,7 +106,7 @@ async function getPagadores() {
 async function getPagadorById(id) {
   const connection = await connect();
   try {
-    const [rows] = await connection.execute(`SELECT * FROM Pagador WHERE id_pagador = ?`, [id]);
+    const [rows] = await connection.execute(`CALL GetPagamentosID(?)`, [id]);
     return rows[0];
   } catch (err) {
     throw new Error('Erro ao buscar o pagador: ' + err.message);
@@ -207,7 +207,7 @@ async function insertPagamento(pagamento) {
 async function getPagamentos() {
   const connection = await connect();
   try {
-    const [rows] = await connection.execute(`SELECT * FROM Pagamento`);
+    const [rows] = await connection.execute(`CALL GetPagamentos()`);
     return rows;
   } catch (err) {
     throw new Error('Erro ao buscar os pagamentos: ' + err.message);

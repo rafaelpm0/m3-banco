@@ -23,7 +23,7 @@ html {
 
 body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: var(--cor-fundo);
     padding: 2em; /* Distância das laterais */
     width: 100%;
@@ -33,6 +33,11 @@ body {
     color: var(--cor-texto);
     justify-content: center;
     line-height: 1.6; /* Altura das linhas */
+}
+
+section{
+    display: flex;
+    flex-direction: row;
 }
 
 header, main {
@@ -100,15 +105,17 @@ input, textarea, select {
     margin-left: 10px;
 }
 
-#arquivo_comprovante{
-    width: 100%;
+#data-comprovante {
+    margin-left: auto;
+    width: 330px;
     padding: 10px;
     border: 2px solid var(--cor-borda);
     border-radius: 10px;
     background-color: var(--cor-container);
     color: var(--cor-texto);
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1.5em;
+    font-weight: bolder;
     transition: background-color 0.3s ease;
     text-align: center;
 }

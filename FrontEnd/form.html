@@ -16,82 +16,84 @@
         <div id="modalContent" class="modalContent"></div>
       </div>
     </div>
-    <main class="form">
-      <form id="submitForm" method="POST" enctype="multipart/form-data">
-        <div class="form-fields">
-          <label for="id_pagador">Pagador:</label>
-          <select id="id_pagador" name="id_pagador" required>
-            <option value="" disabled selected>Escolha o pagador</option>
+    <section>
+      <main class="form">
+        <form id="submitForm" method="POST" enctype="multipart/form-data">
+          <div class="form-fields">
+            <label for="id_pagador">Pagador:</label>
+            <select id="id_pagador" name="id_pagador" required>
+              <option value="" disabled selected>Escolha o pagador</option>
+            </select>
+            
+            <label for="id_unidade">Unidade:</label>
+            <select id="id_unidade" name="id_unidade" required>
+              <option value="" disabled selected>Escolha a unidade</option>
+            </select>
+            
+            <label for="data_pagamento">Data do Pagamento:</label>
+            <input type="date" id="data_pagamento" name="data_pagamento" required />
+            
+            <label for="ano_referencia">Ano de Referência:</label>
+            <input type="number" id="ano_referencia" name="ano_referencia" min="2000" max="2100" required />
+            
+            <label for="mes_referencia">Mês de Referência:</label>
+            <input type="number" id="mes_referencia" name="mes_referencia" min="1" max="12" required />
+            
+            <label for="arquivo_comprovante">Arquivo de Comprovante (PDF):</label>
+            <input type="file" id="arquivo_comprovante" name="arquivo_comprovante" accept="application/pdf" />
+          </div>
+          <button type="button" id="button_submit">Enviar</button>
+        </form>
+      </main>
+      <main class="data">
+        <div id="dataForm">
+          <label class="data-label">Número do Pagamento:</label>
+          <select id="data-numero_pagamento" name="data-numero_divida" >
+            <option value="" disabled selected>Escolha o pagamento</option>
           </select>
-          
-          <label for="id_unidade">Unidade:</label>
-          <select id="id_unidade" name="id_unidade" required>
-            <option value="" disabled selected>Escolha a unidade</option>
-          </select>
-          
-          <label for="data_pagamento">Data do Pagamento:</label>
-          <input type="date" id="data_pagamento" name="data_pagamento" required />
-          
-          <label for="ano_referencia">Ano de Referência:</label>
-          <input type="number" id="ano_referencia" name="ano_referencia" min="2000" max="2100" required />
-          
-          <label for="mes_referencia">Mês de Referência:</label>
-          <input type="number" id="mes_referencia" name="mes_referencia" min="1" max="12" required />
-          
-          <label for="arquivo_comprovante">Arquivo de Comprovante (PDF):</label>
-          <input type="file" id="arquivo_comprovante" name="arquivo_comprovante" accept="application/pdf" />
+          <button id="btn-delete">Deletar registro</button>
         </div>
-        <button type="button" id="button_submit">Enviar</button>
-      </form>
-    </main>
-    <main class="data">
-      <div id="dataForm">
-        <label class="data-label">Número da Dívida:</label>
-        <select id="data-numero_divida" name="data-numero_divida" >
-          <option value="" disabled selected>Escolha o processo</option>
-        </select>
-        <button id="btn-delete">Deletar Dívida</button>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Nome do Pagador:</label>
-        <span class="data-value" id="data-nome_pagador"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Email do Pagador:</label>
-        <span class="data-value" id="data-email_pagador"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Documento do Pagador:</label>
-        <span class="data-value" id="data-documento_pagador"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Telefone do Pagador:</label>
-        <span class="data-value" id="data-telefone_pagador"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Número Identificador da Unidade:</label>
-        <span class="data-value" id="data-numero_identificador_unidade"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Localização da Unidade:</label>
-        <span class="data-value" id="data-localizacao_unidade"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Data do Pagamento:</label>
-        <span class="data-value" id="data-data_pagamento"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Ano de Referência:</label>
-        <span class="data-value" id="data-ano_referencia"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Mês de Referência:</label>
-        <span class="data-value" id="data-mes_referencia"></span>
-      </div>
-      <div class="data-field">
-        <label class="data-label">Arquivo de Comprovante:</label>
-        <button id="data-arquivo_comprovante">Baixar Comprovante</button>
-      </div>
-    </main>
+        <div class="data-field">
+          <label class="data-label">Nome do Pagador:</label>
+          <span class="data-value" id="data-nome_completo"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Email do Pagador:</label>
+          <span class="data-value" id="data-email"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Documento do Pagador:</label>
+          <span class="data-value" id="data-documento"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Telefone do Pagador:</label>
+          <span class="data-value" id="data-telefone"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Número Identificador da Unidade:</label>
+          <span class="data-value" id="data-numero_identificador"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Localização da Unidade:</label>
+          <span class="data-value" id="data-localizacao"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Data de Registro:</label>
+          <span class="data-value" id="data-data_registro"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Ano de Referência:</label>
+          <span class="data-value" id="data-ano_referencia"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Mês de Referência:</label>
+          <span class="data-value" id="data-mes_referencia"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Arquivo de Comprovante:</label>
+          <button id="data-comprovante">Baixar Comprovante</button>
+        </div>
+      </main>
+    </section>
   </body>
 </html>
