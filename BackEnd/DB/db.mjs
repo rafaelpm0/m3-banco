@@ -231,7 +231,7 @@ async function getPagamentoById(id) {
 async function deletePagamento(id) {
   const connection = await connect();
   try {
-    await connection.execute(`DELETE FROM Pagamento WHERE id_pagamento = ?`, [id]);
+    await connection.execute(`CALL DelPagamentos(?)`, [id]);
     console.log(`Pagamento com id ${id} deletado`);
   } catch (err) {
     throw new Error('Erro ao deletar o pagamento: ' + err.message);

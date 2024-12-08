@@ -18,7 +18,7 @@
     </div>
     <section>
       <main class="form">
-        <form id="submitForm" method="POST" enctype="multipart/form-data">
+        <form class="submitForm" id="submitForm" method="POST" enctype="multipart/form-data">
           <div class="form-fields">
             <label for="id_pagador">Pagador:</label>
             <select id="id_pagador" name="id_pagador" required>
@@ -51,7 +51,7 @@
           <select id="data-numero_pagamento" name="data-numero_divida" >
             <option value="" disabled selected>Escolha o pagamento</option>
           </select>
-          <button id="btn-delete">Deletar registro</button>
+          <button id="btn-delete" class="btn-delete">Deletar registro</button>
         </div>
         <div class="data-field">
           <label class="data-label">Nome do Pagador:</label>
@@ -92,6 +92,51 @@
         <div class="data-field">
           <label class="data-label">Arquivo de Comprovante:</label>
           <button id="data-comprovante">Baixar Comprovante</button>
+        </div>
+      </main>
+    </section>
+    <section>
+      <main class="form">
+        <form class="submitForm"  id="dataForm-pagador" method="POST">
+          <div class="form-fields">
+            <label for="data-nome_completo">Nome Completo:</label>
+            <input type="text" id="data-nome_completo" name="data-nome_completo" required />
+
+            <label for="data-email">Email:</label>
+            <input type="email" id="data-email" name="data-email" required />
+
+            <label for="data-documento">Documento:</label>
+            <input type="text" id="data-documento" name="data-documento" required />
+
+            <label for="data-telefone">Telefone:</label>
+            <input type="tel" id="data-telefone" name="data-telefone" required />
+          </div>
+          <button type="submit">Enviar</button>
+        </form>
+      </main>
+      <main class="data" id="data-pagador">
+        <div id="dataForm">
+          <label class="data-label">Pagador:</label>
+          <select id="data-numero_pagador" name="data-pagador" >
+            <option value="" disabled selected>Escolha o pagamento</option>
+          </select>
+          <button id="btn-delete-pagador" class="btn-delete">Deletar registro</button>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Nome Completo:</label>
+          <span class="data-value" id="data-nome_completo_value"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Email:</label>
+          <span class="data-value" id="data-email_value"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Documento:</label>
+          <span class="data-value" id="data-documento_value"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Telefone:</label>
+          <span class="data-value" id="data-telefone_value"></span>
         </div>
       </main>
     </section>

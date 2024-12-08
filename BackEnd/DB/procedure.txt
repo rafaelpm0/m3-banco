@@ -1,5 +1,5 @@
 
-procedimento para pegar via id
+procedimento para pegar pagamento via id
 DELIMITER //
 
 CREATE PROCEDURE GetPagamentosID(
@@ -35,7 +35,7 @@ DELIMITER ;
 
 
 
-procedimento para pegar todos
+procedimento para pegar todos pagamentos
 DELIMITER //
 
 CREATE PROCEDURE GetPagamentos()
@@ -61,6 +61,42 @@ BEGIN
         Unidade u ON p.id_unidade = u.id_unidade
     JOIN
         Pagador pa ON p.id_pagador = pa.id_pagador;
+END //
+
+DELIMITER ;
+
+
+procedimento para deletar pagamento
+DELIMITER //
+
+CREATE PROCEDURE DelPagamentos(
+    IN id INT
+)
+BEGIN
+
+DELETE FROM pagamento WHERE id_pagamento = id;
+    
+END //
+
+DELIMITER ;
+
+
+procedimento para post pagadores
+
+DELIMITER //
+
+CREATE PROCEDURE InsertPagador(
+    IN nome_completo VARCHAR(255), 
+    IN email VARCHAR(255),
+    IN documento VARCHAR(255),
+    IN telefone VARCHAR(255)
+)
+
+BEGIN
+
+INSERT INTO pagador (nome_completo, email, documento, telefone)
+VALUES (nome_completo, email, documento, telefone);
+
 END //
 
 DELIMITER ;

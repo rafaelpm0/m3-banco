@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
 async function updatePagadorSelect() {
     try {
         const pagadores = await getPagadores();

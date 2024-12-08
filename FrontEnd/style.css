@@ -38,6 +38,7 @@ body {
 section{
     display: flex;
     flex-direction: row;
+    gap: 32px;
 }
 
 header, main {
@@ -177,7 +178,7 @@ p, td, span, div {
 
 
 /* botao do formulário */
-#submitForm button{
+.submitForm button{
     margin-top: 32px;
     width: 100%;
     height: 40px;
@@ -208,7 +209,7 @@ p, td, span, div {
     background-color: var(--cor-borda);
 }
 
-#btn-delete {
+.btn-delete {
     margin-left: 32px;
     width: 200px;
     height: 40px;

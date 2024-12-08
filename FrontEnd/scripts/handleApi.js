@@ -79,14 +79,11 @@ export async function updateDividaSelect() {
 }
 
 export function handleChangeDivida(data) {
-    console.log(data, data.comprovante.data)
     Object.keys(data).forEach(key => {
-      
         const element = document.getElementById(`data-${key}`);
-        
         if (element) {
             if (element.tagName === "INPUT" || element.tagName === "TEXTAREA" || element.tagName === "SELECT") {
-                element.value = data[key] || "";
+                element.value = data[key] ? data[key] : "";
             } else if (element.tagName === "BUTTON" && key === "comprovante") {
                 const fileName = "comprovante.pdf";
                 const fileContent = data.comprovante ? new Uint8Array(data.comprovante.data) : null;
@@ -147,12 +144,12 @@ export async function handleForm(data) {
 
 export async function deleteDivida() {
     try {
-        const id = document.getElementById("data-numero_divida").value;
+        const id = document.getElementById("data-numero_pagamento").value;
         if (id === "") {
             showMessageModal("Selecione uma divida para deletar");
             return;
         }
-        const response = await fetch(`http://localhost:5000/dividas/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/pagamentos/${id}`, {
             method: "DELETE",
         });
         if (!response.ok) {
