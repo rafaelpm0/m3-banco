@@ -100,43 +100,43 @@
         <form class="submitForm"  id="dataForm-pagador" method="POST">
           <div class="form-fields">
             <label for="data-nome_completo">Nome Completo:</label>
-            <input type="text" id="data-nome_completo" name="data-nome_completo" required />
+            <input type="text" id="pagador-nome_completo" name="data-nome_completo" required />
 
             <label for="data-email">Email:</label>
-            <input type="email" id="data-email" name="data-email" required />
+            <input type="email" id="pagador-email" name="data-email" required />
 
             <label for="data-documento">Documento:</label>
-            <input type="text" id="data-documento" name="data-documento" required />
+            <input type="text" id="pagador-documento" name="data-documento" required />
 
             <label for="data-telefone">Telefone:</label>
-            <input type="tel" id="data-telefone" name="data-telefone" required />
+            <input type="tel" id="pagador-telefone" name="data-telefone" required />
           </div>
-          <button type="submit">Enviar</button>
+          <button type="submit" id="button-submit-pagador">Enviar</button>
         </form>
       </main>
       <main class="data" id="data-pagador">
         <div id="dataForm">
           <label class="data-label">Pagador:</label>
-          <select id="data-numero_pagador" name="data-pagador" >
-            <option value="" disabled selected>Escolha o pagamento</option>
+          <select id="id_pagador" class="pagador-select" name="data-pagador" >
+            <option value="" disabled selected>Escolha o pagador</option>
           </select>
           <button id="btn-delete-pagador" class="btn-delete">Deletar registro</button>
         </div>
         <div class="data-field">
           <label class="data-label">Nome Completo:</label>
-          <span class="data-value" id="data-nome_completo_value"></span>
+          <span class="data-value" id="data-pagador-nome_completo"></span>
         </div>
         <div class="data-field">
           <label class="data-label">Email:</label>
-          <span class="data-value" id="data-email_value"></span>
+          <span class="data-value" id="data-pagador-email"></span>
         </div>
         <div class="data-field">
           <label class="data-label">Documento:</label>
-          <span class="data-value" id="data-documento_value"></span>
+          <span class="data-value" id="data-pagador-documento"></span>
         </div>
         <div class="data-field">
           <label class="data-label">Telefone:</label>
-          <span class="data-value" id="data-telefone_value"></span>
+          <span class="data-value" id="data-pagador-telefone"></span>
         </div>
       </main>
     </section>

@@ -1,4 +1,7 @@
-import { handleForm, updateDividaSelect, handleChangeDivida, getDividas, deleteDivida, getPagadores, getUnidades } from "./handleApi.js";
+import { handleForm, updateDividaSelect, handleChangeDivida, getDividas, deleteDivida, getPagadores, getUnidades, handleFormPagadores,
+    updatePagadorSelect,
+    handleChangePagador
+ } from "./handleApi.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -35,6 +38,28 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Form not found");
     }
 
+    const formularioPagador = document.getElementById("button-submit-pagador");
+    if (formularioPagador) {
+        formularioPagador.addEventListener("click", async (event) => {
+            event.preventDefault();
+            try {
+                const nome_completo = document.getElementById("pagador-nome_completo").value;
+                const email = document.getElementById("pagador-email").value;
+                const documento = document.getElementById("pagador-documento").value;
+                const telefone = document.getElementById("pagador-telefone").value;
+
+                const data = {
+                    nome_completo, email, documento, telefone
+                };
+                await handleFormPagadores(data);
+            } catch (error) {
+                console.error("Error during form submission:", error);
+            }
+        });
+    } else {
+        console.error("Form not found");
+    }
+
     const select = document.getElementById("data-numero_pagamento");
     if (select) {
         select.addEventListener("change", async (event) => {
@@ -43,6 +68,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await getDividas(); //dava para melhorar e fazer a requisicao direto pelo id 
             const objectId = data[0].find((data) => data.id_pagamento == id);
             handleChangeDivida(objectId);
+        });
+    } else {
+        console.error("Select not found");
+    }
+
+    const selectPagador = document.querySelectorAll("#id_pagador")[1];
+    if (selectPagador) {
+        selectPagador.addEventListener("change", async (event) => {
+           
+            const id = event.target.value;
+            const data = await getPagadores(); //dava para melhorar e fazer a requisicao direto pelo id 
+            const objectId = data.find((data) => data.id_pagador == id);
+            handleChangePagador(objectId);
         });
     } else {
         console.error("Select not found");
@@ -67,23 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-async function updatePagadorSelect() {
-    try {
-        const pagadores = await getPagadores();
-        const select = document.getElementById("id_pagador");
-        if (select) {
-            select.innerHTML = "<option value='' disabled selected>Escolha o pagador</option>";
-            pagadores.forEach(pagador => {
-                const option = document.createElement("option");
-                option.value = pagador.id_pagador;
-                option.text = pagador.nome_completo;
-                select.appendChild(option);
-            });
-        }
-    } catch (error) {
-        console.error("Erro ao atualizar o select de pagadores:", error);
-    }
-}
+
 
 async function updateUnidadeSelect() {
     try {

@@ -79,7 +79,7 @@ async function insertPagador(pagador) {
   const connection = await connect();
   try {
     const [result] = await connection.execute(
-      `INSERT INTO Pagador (nome_completo, email, documento, telefone) VALUES (?, ?, ?, ?)`,
+      `CALL InsertPagador(?, ?, ?, ?)`,
       [pagador.nome_completo, pagador.email, pagador.documento, pagador.telefone]
     );
     console.log(`Novo pagador adicionado com o id ${result.insertId}`);
