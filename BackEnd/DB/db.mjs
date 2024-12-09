@@ -118,7 +118,7 @@ async function getPagadorById(id) {
 async function deletePagador(id) {
   const connection = await connect();
   try {
-    await connection.execute(`DELETE FROM Pagador WHERE id_pagador = ?`, [id]);
+    await connection.execute(`CALL DelPagador(?)`, [id]);
     console.log(`Pagador com id ${id} deletado`);
   } catch (err) {
     throw new Error('Erro ao deletar o pagador: ' + err.message);

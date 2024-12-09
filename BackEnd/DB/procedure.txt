@@ -100,3 +100,17 @@ VALUES (nome_completo, email, documento, telefone);
 END //
 
 DELIMITER ;
+
+procedimento para deletar pagador
+DELIMITER //
+
+CREATE PROCEDURE DelPagador(
+    IN id INT
+)
+BEGIN
+
+DELETE FROM pagador WHERE id_pagador = id;
+    
+END //
+
+DELIMITER ;

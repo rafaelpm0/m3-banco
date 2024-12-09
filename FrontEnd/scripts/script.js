@@ -1,7 +1,8 @@
-import { handleForm, updateDividaSelect, handleChangeDivida, getDividas, deleteDivida, getPagadores, getUnidades, handleFormPagadores,
-    updatePagadorSelect,
-    handleChangePagador
- } from "./handleApi.js";
+import {updateDividaSelect, updatePagadorSelect} from "./UpdateSelect.js";
+import {handleChangeDivida, handleChangePagador, showMessageModal} from "./utils.js";
+import {getDividas, getPagadores, getUnidades} from "./getAPI.js";
+import {handleForm, handleFormPagadores } from "./postAPI.js";
+import {deleteDivida, deletPagador} from "./delAPI.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -94,6 +95,22 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Delete button clicked and propagation stopped");
             try {
                 await deleteDivida();
+            } catch (error) {
+                console.error("Error during delete:", error);
+            }
+        });
+    } else {
+        console.error("Delete button not found");
+    }
+
+    const deleteButtonPagador = document.getElementById("btn-delete-pagador");
+    if (deleteButtonPagador) {
+        deleteButtonPagador.addEventListener("click", async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log("Delete button clicked and propagation stopped");
+            try {
+                await deletPagador();
             } catch (error) {
                 console.error("Error during delete:", error);
             }
