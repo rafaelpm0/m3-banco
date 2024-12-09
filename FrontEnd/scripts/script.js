@@ -1,4 +1,4 @@
-import {updateDividaSelect, updatePagadorSelect} from "./UpdateSelect.js";
+import {updateDividaSelect, updatePagadorSelect, updateUnidadeSelect} from "./UpdateSelect.js";
 import {handleChangeDivida, handleChangePagador, showMessageModal} from "./utils.js";
 import {getDividas, getPagadores, getUnidades} from "./getAPI.js";
 import {handleForm, handleFormPagadores } from "./postAPI.js";
@@ -120,24 +120,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
-
-
-
-
-async function updateUnidadeSelect() {
-    try {
-        const unidades = await getUnidades();
-        const select = document.getElementById("id_unidade");
-        if (select) {
-            select.innerHTML = "<option value='' disabled selected>Escolha a unidade</option>";
-            unidades.forEach(unidade => {
-                const option = document.createElement("option");
-                option.value = unidade.id_unidade;
-                option.text = unidade.numero_identificador;
-                select.appendChild(option);
-            });
-        }
-    } catch (error) {
-        console.error("Erro ao atualizar o select de unidades:", error);
-    }
-}

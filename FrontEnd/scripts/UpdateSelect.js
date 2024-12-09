@@ -52,3 +52,20 @@ export async function updateDividaSelect() {
     }
   }
   
+  export async function updateUnidadeSelect() {
+    try {
+        const unidades = await getUnidades();
+        const select = document.getElementById("id_unidade");
+        if (select) {
+            select.innerHTML = "<option value='' disabled selected>Escolha a unidade</option>";
+            unidades.forEach(unidade => {
+                const option = document.createElement("option");
+                option.value = unidade.id_unidade;
+                option.text = unidade.numero_identificador;
+                select.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error("Erro ao atualizar o select de unidades:", error);
+    }
+}
