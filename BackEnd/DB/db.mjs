@@ -61,7 +61,7 @@ async function createDB() {
         ano_referencia YEAR NOT NULL,
         mes_referencia TINYINT NOT NULL,
         id_unidade INT NOT NULL,
-        data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        data_registro TIMESTAMP,
         FOREIGN KEY (id_pagador) REFERENCES Pagador(id_pagador) ON DELETE CASCADE,
         FOREIGN KEY (id_unidade) REFERENCES Unidade(id_unidade) ON DELETE CASCADE
       )`
@@ -132,7 +132,7 @@ async function insertUnidade(unidade) {
   const connection = await connect();
   try {
     const [result] = await connection.execute(
-      `INSERT INTO Unidade (numero_identificador, localizacao) VALUES (?, ?)`,
+      `CALL InsertUnidade(?, ?)`,
       [unidade.numero_identificador, unidade.localizacao]
     );
     console.log(`Nova unidade adicionada com o id ${result.insertId}`);
@@ -171,7 +171,7 @@ async function getUnidadeById(id) {
 async function deleteUnidade(id) {
   const connection = await connect();
   try {
-    await connection.execute(`DELETE FROM Unidade WHERE id_unidade = ?`, [id]);
+    await connection.execute(`CALL DelUnidade(?)`, [id]);
     console.log(`Unidade com id ${id} deletada`);
   } catch (err) {
     throw new Error('Erro ao deletar a unidade: ' + err.message);

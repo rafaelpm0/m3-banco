@@ -132,3 +132,19 @@ VALUES (numero_identificador, localizacao);
 END //
 
 DELIMITER ;
+
+
+procedimento para deletar unidade
+
+DELIMITER //
+
+CREATE PROCEDURE DelUnidade(
+    IN id INT
+)
+BEGIN
+
+DELETE FROM unidade WHERE id_unidade = id;
+    
+END //
+
+DELIMITER ;

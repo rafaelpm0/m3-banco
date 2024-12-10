@@ -1,4 +1,4 @@
-import {updateDividaSelect, updatePagadorSelect} from "./UpdateSelect.js";
+import {updateDividaSelect, updatePagadorSelect, updateUnidadeSelect} from "./UpdateSelect.js";
 import {showMessageModal} from "./utils.js";
 
 
@@ -89,5 +89,5 @@ export async function handleForm(data) {
         deactivateModal();
       }, 3000);
     }
-    updatePagadorSelect();
+    updateUnidadeSelect();
   }

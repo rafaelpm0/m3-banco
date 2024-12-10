@@ -59,11 +59,11 @@ export async function updateDividaSelect() {
         if (selects.length > 0) {
           selects.forEach((select) => {
             select.innerHTML =
-              "<option value='' disabled selected>Escolha o pagador</option>";
+              "<option value='' disabled selected>Escolha a unidade</option>";
               unidades.forEach((unidade) => {
               const option = document.createElement("option");
               option.value = unidade.id_unidade;
-              option.text = `N ${unidade.numero_identificador} ${unidade.localizacao}`;
+              option.text = `N ${unidade.numero_identificador} - ${unidade.localizacao}`;
               select.appendChild(option);
             });
           });

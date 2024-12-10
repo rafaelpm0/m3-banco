@@ -2,7 +2,8 @@ import {updateDividaSelect, updatePagadorSelect, updateUnidadeSelect} from "./Up
 import {handleChangeDivida, handleChangePagador, handleChangeUnidade} from "./utils.js";
 import {getDividas, getPagadores, getUnidades} from "./getAPI.js";
 import {handleForm, handleFormPagadores, handleFormUnidade } from "./postAPI.js";
-import {deleteDivida, deletPagador} from "./delAPI.js";
+import {deleteDivida, deletPagador, deletUnidade} from "./delAPI.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -147,6 +148,23 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Delete button clicked and propagation stopped");
             try {
                 await deletPagador();
+            } catch (error) {
+                console.error("Error during delete:", error);
+            }
+        });
+    } else {
+        console.error("Delete button not found");
+    }
+
+    
+    const deleteButtonUnidade = document.getElementById("btn-delete-unidade");
+    if (deleteButtonUnidade) {
+        deleteButtonUnidade.addEventListener("click", async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log("Delete button clicked and propagation stopped");
+            try {
+                await deletUnidade();
             } catch (error) {
                 console.error("Error during delete:", error);
             }
