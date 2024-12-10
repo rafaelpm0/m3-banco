@@ -62,3 +62,32 @@ export async function handleForm(data) {
     }
     updatePagadorSelect();
   }
+
+
+  export async function handleFormUnidade(data) {
+    try {
+      const response = await fetch("http://localhost:5000/api/unidades", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const result = await response.json();
+      console.log("Server response:", result);
+      showMessageModal("Unidade cadastrado com sucesso!");
+      setTimeout(() => {
+        deactivateModal();
+      }, 3000);
+    } catch (error) {
+      console.error("Error:", error);
+      showMessageModal("Erro ao cadastrar unidade!");
+      setTimeout(() => {
+        deactivateModal();
+      }, 3000);
+    }
+    updatePagadorSelect();
+  }

@@ -45,6 +45,17 @@ export function handleChangePagador(data) {
   });
 }
 
+export function handleChangeUnidade(data) {
+  Object.keys(data).forEach((key) => {
+    const element = document.getElementById(`unidade-${key}`);
+    if (element) {
+      element.textContent = data[key] || "";
+    }
+  });
+}
+
+
+
 export function showMessageModal(message) {
   const modal = document.getElementById("modal");
   const modalContent = document.getElementById("modalContent");

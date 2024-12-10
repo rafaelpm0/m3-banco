@@ -140,5 +140,38 @@
         </div>
       </main>
     </section>
+    <!-- alterar a partir daqui-->
+    <section>
+      <main class="form">
+        <form class="submitForm"  id="dataForm-unidade" method="POST">
+          <div class="form-fields">
+            <label for="numero_identificador">Numero identificador:</label>
+            <input type="text" id="numero_identificador" name="numero_identificador" required />
+
+            <label for="unidade-localizacao">Localização:</label>
+            <input type="text" id="localizacao" name="unidade-localizacao" required />
+
+          </div>
+          <button type="submit" id="button-submit-unidade">Enviar</button>
+        </form>
+      </main>
+      <main class="data" id="data-pagador">
+        <div id="dataForm">
+          <label class="data-label">Unidade:</label>
+          <select id="id_unidade" name="id_unidade" >
+            <option value="" disabled selected>Escolha o pagador</option>
+          </select>
+          <button id="btn-delete-unidade" class="btn-delete">Deletar registro</button>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Numero identificador:</label>
+          <span class="data-value" id="unidade-numero_identificador"></span>
+        </div>
+        <div class="data-field">
+          <label class="data-label">Unidade:</label>
+          <span class="data-value" id="unidade-localizacao"></span>
+        </div>
+      </main>
+    </section>
   </body>
 </html>

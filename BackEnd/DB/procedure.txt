@@ -114,3 +114,21 @@ DELETE FROM pagador WHERE id_pagador = id;
 END //
 
 DELIMITER ;
+
+
+procedimento para inserir unidade
+DELIMITER //
+
+CREATE PROCEDURE InsertUnidade(
+    IN numero_identificador VARCHAR(255), 
+    IN localizacao VARCHAR(255)
+)
+
+BEGIN
+
+INSERT INTO unidade (numero_identificador, localizacao)
+VALUES (numero_identificador, localizacao);
+
+END //
+
+DELIMITER ;

@@ -1,7 +1,7 @@
 import {updateDividaSelect, updatePagadorSelect, updateUnidadeSelect} from "./UpdateSelect.js";
-import {handleChangeDivida, handleChangePagador, showMessageModal} from "./utils.js";
+import {handleChangeDivida, handleChangePagador, handleChangeUnidade} from "./utils.js";
 import {getDividas, getPagadores, getUnidades} from "./getAPI.js";
-import {handleForm, handleFormPagadores } from "./postAPI.js";
+import {handleForm, handleFormPagadores, handleFormUnidade } from "./postAPI.js";
 import {deleteDivida, deletPagador} from "./delAPI.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -61,6 +61,28 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Form not found");
     }
 
+    const formularioUnidade = document.getElementById("button-submit-unidade");
+    if (formularioUnidade) {
+        formularioUnidade.addEventListener("click", async (event) => {
+            event.preventDefault();
+            try { /// continuar alterando a partir daqui
+                const numero_identificador = document.getElementById("numero_identificador").value;
+                const localizacao = document.getElementById("localizacao").value;
+
+                const data = {
+                    numero_identificador, localizacao
+                };
+                await handleFormUnidade(data);
+            } catch (error) {
+                console.error("Error during form submission:", error);
+            }
+        });
+    } else {
+        console.error("Form not found");
+    }
+
+
+
     const select = document.getElementById("data-numero_pagamento");
     if (select) {
         select.addEventListener("change", async (event) => {
@@ -82,6 +104,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await getPagadores(); //dava para melhorar e fazer a requisicao direto pelo id 
             const objectId = data.find((data) => data.id_pagador == id);
             handleChangePagador(objectId);
+        });
+    } else {
+        console.error("Select not found");
+    }
+
+    const selectUnidade = document.querySelectorAll("#id_unidade")[1];
+    if (selectUnidade) {
+        selectUnidade.addEventListener("change", async (event) => {
+           
+            const id = event.target.value;
+            const data = await getUnidades(); //dava para melhorar e fazer a requisicao direto pelo id 
+            const objectId = data.find((data) => data.id_unidade == id);
+            console.log( objectId   )
+            handleChangeUnidade(objectId);
         });
     } else {
         console.error("Select not found");

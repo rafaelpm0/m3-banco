@@ -1,6 +1,6 @@
 
 import { showMessageModal} from "./utils.js";
-import {getDividas, getPagadores} from "./getAPI.js";
+import {getDividas, getPagadores, getUnidades} from "./getAPI.js";
 
 
 export async function updateDividaSelect() {
@@ -55,17 +55,20 @@ export async function updateDividaSelect() {
   export async function updateUnidadeSelect() {
     try {
         const unidades = await getUnidades();
-        const select = document.getElementById("id_unidade");
-        if (select) {
-            select.innerHTML = "<option value='' disabled selected>Escolha a unidade</option>";
-            unidades.forEach(unidade => {
-                const option = document.createElement("option");
-                option.value = unidade.id_unidade;
-                option.text = unidade.numero_identificador;
-                select.appendChild(option);
+        const selects = document.querySelectorAll("#id_unidade");
+        if (selects.length > 0) {
+          selects.forEach((select) => {
+            select.innerHTML =
+              "<option value='' disabled selected>Escolha o pagador</option>";
+              unidades.forEach((unidade) => {
+              const option = document.createElement("option");
+              option.value = unidade.id_unidade;
+              option.text = `N ${unidade.numero_identificador} ${unidade.localizacao}`;
+              select.appendChild(option);
             });
+          });
         }
-    } catch (error) {
-        console.error("Erro ao atualizar o select de unidades:", error);
+      } catch (error) {
+        console.error("Erro ao atualizar o select de pagadores:", error);
+      }
     }
-}
